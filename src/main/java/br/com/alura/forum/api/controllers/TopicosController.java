@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class TopicosController {
     }
 
     @PostMapping
-    public ResponseEntity<TopicoDto> createTopico(@RequestBody TopicoFormDto topicoFormDto,
+    public ResponseEntity<TopicoDto> createTopico(@RequestBody @Valid TopicoFormDto topicoFormDto,
             UriComponentsBuilder uriBuilder) {
         TopicoDto topicoDto = topicoService.createTopico(topicoFormDto);
 
