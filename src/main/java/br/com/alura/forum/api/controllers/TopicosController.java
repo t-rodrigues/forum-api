@@ -1,5 +1,6 @@
 package br.com.alura.forum.api.controllers;
 
+import br.com.alura.forum.api.dtos.TopicoDto;
 import br.com.alura.forum.domain.models.Curso;
 import br.com.alura.forum.domain.models.Topico;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,10 @@ import java.util.List;
 public class TopicosController {
 
     @GetMapping
-    public List<Topico> getTopicos() {
+    public List<TopicoDto> getTopicos() {
         Topico topico = new Topico("Dúvida", "Dúvida com Spring", new Curso("Spring", "Programação"));
 
-        return Arrays.asList(topico, topico, topico);
+        return TopicoDto.toDtoList(Arrays.asList(topico, topico, topico));
     }
 
 }
