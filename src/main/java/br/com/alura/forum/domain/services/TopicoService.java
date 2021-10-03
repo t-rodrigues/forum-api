@@ -21,4 +21,10 @@ public class TopicoService {
         return TopicoDto.toDtoList(topicos);
     }
 
+    public List<TopicoDto> getTopicosPorCurso(String nomeCurso) {
+        var topicos = topicoRepository.findByCursoNome(nomeCurso);
+
+        return TopicoDto.toDtoList(topicos);
+    }
+
 }
