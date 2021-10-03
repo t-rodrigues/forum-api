@@ -11,7 +11,7 @@ public class TopicoFormDto {
     private String titulo;
     private String mensagem;
 
-    @JsonAlias("nome_curso")
-    private String nomeCurso;
+    @JsonAlias("curso_id")
+    private Long cursoId;
 
 }

@@ -3,8 +3,11 @@ package br.com.alura.forum.api.controllers;
 import br.com.alura.forum.api.dtos.TopicoDto;
 import br.com.alura.forum.api.dtos.TopicoFormDto;
 import br.com.alura.forum.domain.services.TopicoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,8 +31,13 @@ public class TopicosController {
     }
 
     @PostMapping
-    public void createTopico(@RequestBody TopicoFormDto topicoFormDto) {
-        topicoService.createTopico(topicoFormDto);
+    public ResponseEntity<TopicoDto> createTopico(@RequestBody TopicoFormDto topicoFormDto,
+            UriComponentsBuilder uriBuilder) {
+        TopicoDto topicoDto = topicoService.createTopico(topicoFormDto);
+
+        URI location = uriBuilder.path("/topicos/{id}").buildAndExpand(topicoDto.getId()).toUri();
+
+        return ResponseEntity.created(location).body(topicoDto);
     }
 
 }

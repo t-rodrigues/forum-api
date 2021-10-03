@@ -17,7 +17,7 @@ public class TopicoService {
 
     private final TopicoRepository topicoRepository;
     private final CursoRepository cursoRepository;
-    private final MapStructMapper topicoMapper;
+    private final MapStructMapper mapper;
 
     public List<TopicoDto> getTopicos() {
         var topicos = topicoRepository.findAll();
@@ -32,11 +32,15 @@ public class TopicoService {
     }
 
     @Transactional
-    public void createTopico(TopicoFormDto topicoFormDto) {
-        var topico = topicoMapper.toModel(topicoFormDto);
-        topico.setCurso(cursoRepository.findByNome(topicoFormDto.getNomeCurso()));
+    public TopicoDto createTopico(TopicoFormDto topicoFormDto) {
+        var topico = mapper.topicoFormToTopico(topicoFormDto);
+        var curso = cursoRepository.findById(topicoFormDto.getCursoId())
+                .orElseThrow(() -> new IllegalArgumentException("Curso inválido"));
+        topico.setCurso(curso);
 
         topicoRepository.save(topico);
+
+        return mapper.topicoToTopicoDto(topico);
     }
 
 }

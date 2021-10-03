@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface MapStructMapper {
 
-    Topico toModel(TopicoFormDto topicoFormDto);
+    Topico topicoFormToTopico(TopicoFormDto topicoFormDto);
 
     TopicoDto topicoToTopicoDto(Topico topico);
 
